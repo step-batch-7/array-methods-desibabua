@@ -26,15 +26,6 @@ void free_array(Array_ptr src)
   src = NULL;
 }
 
-void display_array(Array_ptr src)
-{
-  for (int i = 0; i < src->length; i++)
-  {
-    printf("%d ",src->array[i]);
-  }
-  printf("\n");
-}
-
 Array_ptr map(Array_ptr src, Mapper Mapper)
 {
   int temp[src->length];
@@ -57,4 +48,13 @@ Array_ptr filter(Array_ptr src, Predicate predicate)
     }
   }
   return copy_array(temp, count);
+}
+
+int reduce(Array_ptr src, int init, Reducer reducer)
+{
+  for (int i = 0; i < src->length; i++)
+  {
+    init = (*reducer)(init, src->array[i]);
+  }
+  return init;
 }

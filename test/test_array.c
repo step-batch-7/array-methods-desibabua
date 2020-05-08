@@ -56,10 +56,32 @@ void test_filter_function(void)
   free_array(actual_odd_numbers);
 }
 
+int sum(int a, int b)
+{
+  return a + b;
+}
+
+void test_reduce_function(void)
+{
+  describe("reduce_function");
+
+  int values[8] = {1, 2, 3, 4, 5, 6, 7, 8};
+  Array_ptr numbers = copy_array(values, 8);
+
+  int actual_sum = reduce(numbers, 0, &sum);
+  int expected_sum = 36;
+
+  Bool status = assert_num(True, actual_sum, expected_sum);
+  it("should reduce according to reducer", status);
+
+  free_array(numbers);
+}
+
 int main(void)
 {
   test_copy_array();
   test_map_function();
   test_filter_function();
+  test_reduce_function();
   return 0;
 }
