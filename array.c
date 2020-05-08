@@ -44,3 +44,17 @@ Array_ptr map(Array_ptr src, Mapper Mapper)
   }
   return copy_array(temp, src->length);
 }
+
+Array_ptr filter(Array_ptr src, Predicate predicate)
+{
+  int temp[src->length];
+  int count = 0;
+  for (int i = 0; i < src->length; i++)
+  {
+    if((*predicate)(src->array[i])){
+      temp[count] = src->array[i];
+      count++;
+    }
+  }
+  return copy_array(temp, count);
+}
