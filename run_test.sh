@@ -2,7 +2,7 @@
 
 cd test
 rm -rf *.o
-gcc -c *.c ../list.c
+gcc -c *.c ../array.c
 gcc -o ./test_results *.o
 ./test_results
 rm -rf ./test_results
