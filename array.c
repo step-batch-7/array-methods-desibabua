@@ -1,8 +1,7 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include "array.h"
 
-Array_ptr copy_array(int *array, int length)
+Array_ptr copy_int_array(int *array, int length)
 {
   Array_ptr src = malloc(sizeof(Array));
   src->length = length;
@@ -33,7 +32,7 @@ Array_ptr map(Array_ptr src, Mapper Mapper)
   {
     temp[i] = (*Mapper)(src->array[i]);
   }
-  return copy_array(temp, src->length);
+  return copy_int_array(temp, src->length);
 }
 
 Array_ptr filter(Array_ptr src, Predicate predicate)
@@ -47,7 +46,7 @@ Array_ptr filter(Array_ptr src, Predicate predicate)
       count++;
     }
   }
-  return copy_array(temp, count);
+  return copy_int_array(temp, count);
 }
 
 int reduce(Array_ptr src, int init, Reducer reducer)

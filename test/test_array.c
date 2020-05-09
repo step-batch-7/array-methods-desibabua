@@ -1,12 +1,13 @@
 #include "../array.h"
 #include "assert.h"
+#include "tests.h"
 
-void test_copy_array(void)
+void test_copy_int_array(void)
 {
-  describe("copy_array");
+  describe("copy_int_array");
 
   int numbers[5] = {1, 2, 3, 4, 5};
-  Array_ptr array = copy_array(numbers, 5);
+  Array_ptr array = copy_int_array(numbers, 5);
   it("should copy the elements of array", assert_array(array,numbers , 5));
 
   free_array(array);
@@ -22,7 +23,7 @@ void test_map_function(void)
   describe("map_function");
 
   int values[5] = {1, 2, 3, 4, 5};
-  Array_ptr numbers = copy_array(values, 5);
+  Array_ptr numbers = copy_int_array(values, 5);
 
   Array_ptr actual_inc_numbers = map(numbers, &increment);
   int expected_inc_numbers[5] = {2, 3, 4, 5, 6};
@@ -44,7 +45,7 @@ void test_filter_function(void)
   describe("filter_function");
 
   int values[8] = {1, 2, 3, 4, 5, 6, 7, 8};
-  Array_ptr numbers = copy_array(values, 8);
+  Array_ptr numbers = copy_int_array(values, 8);
 
   Array_ptr actual_odd_numbers = filter(numbers, &is_odd);
   int expected_odd_numbers[4] = {1, 3, 5, 7};
@@ -66,7 +67,7 @@ void test_reduce_function(void)
   describe("reduce_function");
 
   int values[8] = {1, 2, 3, 4, 5, 6, 7, 8};
-  Array_ptr numbers = copy_array(values, 8);
+  Array_ptr numbers = copy_int_array(values, 8);
 
   int actual_sum = reduce(numbers, 0, &sum);
   int expected_sum = 36;
@@ -77,11 +78,10 @@ void test_reduce_function(void)
   free_array(numbers);
 }
 
-int main(void)
+void test_array(void)
 {
-  test_copy_array();
+  test_copy_int_array();
   test_map_function();
   test_filter_function();
   test_reduce_function();
-  return 0;
 }

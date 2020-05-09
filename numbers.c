@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "array.h"
+#include "array_void.h"
 
 void display_array(Array_ptr src, char *msg)
 {
@@ -11,9 +13,14 @@ void display_array(Array_ptr src, char *msg)
   printf("\n");
 }
 
-void display_number(int number, char *msg)
+void display_number(int number)
 {
-  printf("%s  %d\n", msg, number);
+  printf("%d \n", number);
+}
+
+void display_char(void *character)
+{
+  printf("%c ",*(char *)character);
 }
 
 int increment(int a)
@@ -34,7 +41,7 @@ int sum(int a, int b)
 int main()
 {
   int values[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-  Array_ptr list = copy_array(values, 8);
+  Array_ptr list = copy_int_array(values, 8);
   display_array(list, "numbers :");
 
   Array_ptr inc_list = map(list, &increment);
@@ -44,7 +51,11 @@ int main()
   display_array(even_numbers, "even numbers :");
 
   int total = reduce(list, 0, &sum);
-  display_number(total, "Total :");
+  display_number(total);
+
+  char array[] = {'a', 'b', 'c'};
+  ArrayVoid_ptr new_array = copy_arrayVoid(array, 3, &copy_char);
+  display_arrayVoid_ptr(new_array, &display_char);
 
   free_array(list);
   free_array(inc_list);

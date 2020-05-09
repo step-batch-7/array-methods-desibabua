@@ -16,6 +16,26 @@ Bool assert_array(Array_ptr src, int *array, int count)
   return status;
 }
 
+Bool assert_arrayVoid(ArrayVoid_ptr src, Object *array, int count, is_equal compare)
+{
+  Bool status = (src->length == count);
+
+  int index;
+  while (status && count)
+  {
+    index = src->length - count;
+    status = status && (*compare)(src->array[index], array[index]);
+    count--;
+  }
+
+  return status;
+}
+
+Bool compare_char_ptr(void *a,void *b)
+{
+  return *(char *)a == *(char *)b;
+}
+
 Bool assert_num(Bool status, int num1,int num2)
 {
   return status && (num1 == num2);

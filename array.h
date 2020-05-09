@@ -22,7 +22,7 @@ Array_ptr map(Array_ptr src, Mapper mapper);
 Array_ptr filter(Array_ptr src, Predicate predicate);
 int reduce(Array_ptr src, int init, Reducer reducer);
 
-Array_ptr copy_array(int *array, int length);
+Array_ptr copy_int_array(int *array, int length);
 void free_array(Array_ptr src);
 
 #endif
