@@ -18,9 +18,9 @@ void display_number(int number)
   printf("%d \n", number);
 }
 
-void display_char(void *character)
+void display_int(void *character)
 {
-  printf("%c ",*(char *)character);
+  printf("%d ",*(int *)character);
 }
 
 int increment(int a)
@@ -38,6 +38,13 @@ int sum(int a, int b)
   return a + b;
 }
 
+Object mul_by_5(Object number)
+{
+  int *output = malloc(sizeof(int));
+  *output = (*(int *)number) * 5;
+  return output;
+}
+
 int main()
 {
   int values[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -53,9 +60,12 @@ int main()
   int total = reduce(list, 0, &sum);
   display_number(total);
 
-  char array[] = {'a', 'b', 'c'};
-  ArrayVoid_ptr new_array = copy_arrayVoid(array, 3, &copy_char);
-  display_arrayVoid_ptr(new_array, &display_char);
+  int array[5] = {1, 2, 3, 4, 5};
+  Object *temp_object = create_object(array, 5, &copy_int);
+  ArrayVoid_ptr new_array = copy_arrayVoid(temp_object, 5);
+  ArrayVoid_ptr mapped_array = map_void(new_array, &mul_by_5);
+  display_arrayVoid_ptr(new_array, &display_int);
+  display_arrayVoid_ptr(mapped_array, &display_int);
 
   free_array(list);
   free_array(inc_list);

@@ -36,6 +36,11 @@ Bool compare_char_ptr(void *a,void *b)
   return *(char *)a == *(char *)b;
 }
 
+Bool compare_int_ptr(void *a,void *b)
+{
+  return *(int *)a == *(int *)b;
+}
+
 Bool assert_num(Bool status, int num1,int num2)
 {
   return status && (num1 == num2);

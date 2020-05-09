@@ -23,9 +23,9 @@ ArrayVoid_ptr map_void(ArrayVoid_ptr src, MapperVoid mapper);
 ArrayVoid_ptr filter_void(ArrayVoid_ptr src, PredicateVoid predicate);
 Object reduce_void(ArrayVoid_ptr src, Object init, ReducerVoid reducer);
 
-ArrayVoid_ptr copy_arrayVoid(Object src, int length, Copy_void copy_element);
+ArrayVoid_ptr copy_arrayVoid(Object *src, int length);
 Object *create_object(Object src, int length, Copy_void copy_element);
-void *copy_char(Object src, int position);
+void *copy_int(void *numbers, int position);
 void display_arrayVoid_ptr(ArrayVoid_ptr, displayer);
 
 #endif

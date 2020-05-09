@@ -12,18 +12,18 @@ Object *create_object(Object src, int length, Copy_void copy_element)
   return array;
 }
 
-ArrayVoid_ptr copy_arrayVoid(Object src,int length, Copy_void copy_element)
+ArrayVoid_ptr copy_arrayVoid(Object *src,int length)
 {
   ArrayVoid_ptr arrayVoid = malloc(sizeof(ArrayVoid_ptr));
   arrayVoid->length = length;
-  arrayVoid->array = create_object(src, length, copy_element);
+  arrayVoid->array = src;
   return arrayVoid;
 }
 
-void *copy_char(Object src,int position)
+void *copy_int(Object numbers,int position)
 {
-  char *element = malloc(sizeof(char));
-  *element = ((char *)src)[position];
+  int *element = malloc(sizeof(int));
+  *element = ((int *)numbers)[position];
   return element;
 }
 
@@ -33,4 +33,14 @@ void display_arrayVoid_ptr(ArrayVoid_ptr arrayVoid, displayer console){
     (*console)(arrayVoid->array[i]);
   }
   printf("\n");
+}
+
+ArrayVoid_ptr map_void(ArrayVoid_ptr src, MapperVoid mapper){
+  Object *temp = malloc(sizeof(Object) * src->length);
+  
+  for (int i = 0; i < src->length; i++)
+  {
+    temp[i] = (*mapper)(src->array[i]);
+  }
+  return copy_arrayVoid(temp, src->length);
 }
