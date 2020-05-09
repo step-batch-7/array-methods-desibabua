@@ -62,3 +62,12 @@ ArrayVoid_ptr filter_void(ArrayVoid_ptr src, PredicateVoid predicate)
 
   return copy_arrayVoid(filtered_value, count);
 }
+
+Object reduce_void(ArrayVoid_ptr src, Object init, ReducerVoid reducer)
+{
+  for (int i = 0; i < src->length; i++)
+  {
+    init = (*reducer)(init, src->array[i]);
+  }
+  return init;
+}

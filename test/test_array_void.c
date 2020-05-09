@@ -61,9 +61,34 @@ void test_filter_void(void)
   it("should filter the elements of list", status);
 }
 
+Object sum_void(Object init,Object number)
+{
+  int *result = malloc(sizeof(int));
+  *result = *(int *)init + *(int *)number;
+  return result;
+}
+
+void test_reduce_void(void)
+{
+  describe("reduce_void");
+
+  int array[] = {1, 2, 3, 4, 5, 6, 7};
+  Object *numbers = create_object(array, 7, &copy_int);
+  ArrayVoid_ptr numbers_voids = copy_arrayVoid(numbers, 7);
+
+  Object initial = calloc(1, sizeof(int));
+  Object expected = malloc(sizeof(int));
+  *(int *)expected = 28;
+
+  Object actual = reduce_void(numbers_voids, initial, &sum_void);
+  Bool status = compare_int_ptr(actual, expected);
+  it("should give sum of elements", status);
+}
+
 void test_array_void(void)
 {
   test_copy_array_void();
   test_map_void();
   test_filter_void();
+  test_reduce_void();
 }

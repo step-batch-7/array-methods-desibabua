@@ -18,9 +18,9 @@ void display_number(int number)
   printf("%d \n", number);
 }
 
-void display_int(void *character)
+void display_int(void *number)
 {
-  printf("%d ",*(int *)character);
+  printf("%d ",*(int *)number);
 }
 
 int increment(int a)
@@ -50,6 +50,13 @@ Bool is_odd_void(Object number)
   return (*(int *)number) % 2 != 0;
 }
 
+Object sum_void(Object init,Object number)
+{
+  int *result = malloc(sizeof(int));
+  *result = *(int *)init + *(int *)number;
+  return result;
+}
+
 int main()
 {
   int values[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -74,6 +81,10 @@ int main()
 
   ArrayVoid_ptr odd_void = filter_void(new_array, &is_odd_void);
   display_arrayVoid_ptr(odd_void, &display_int);
+
+  Object initial = calloc(1, sizeof(int));
+  Object total_void = reduce_void(new_array, initial, &sum_void);
+  display_int(total_void);
 
   free_array(list);
   free_array(inc_list);
