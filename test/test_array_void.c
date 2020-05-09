@@ -40,8 +40,30 @@ void test_map_void(void)
   it("should map the elements of list", status);
 }
 
+Bool is_odd_void(Object number)
+{
+  return (*(int *)number) % 2 != 0;
+}
+
+void test_filter_void(void)
+{
+  describe("filter_void");
+
+  int array[] = {1, 2, 3, 4, 5, 6, 7};
+  Object *numbers = create_object(array, 7, &copy_int);
+  ArrayVoid_ptr numbers_voids = copy_arrayVoid(numbers, 7);
+
+  int exp_array[] = {1, 3, 5, 7};
+  Object *exp_numbers = create_object(exp_array, 4, &copy_int);
+
+  ArrayVoid_ptr act_numbers = filter_void(numbers_voids, &is_odd_void);
+  Bool status = assert_arrayVoid(act_numbers, exp_numbers, 4, &compare_int_ptr);
+  it("should filter the elements of list", status);
+}
+
 void test_array_void(void)
 {
   test_copy_array_void();
   test_map_void();
+  test_filter_void();
 }

@@ -45,6 +45,11 @@ Object mul_by_5(Object number)
   return output;
 }
 
+Bool is_odd_void(Object number)
+{
+  return (*(int *)number) % 2 != 0;
+}
+
 int main()
 {
   int values[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -63,9 +68,12 @@ int main()
   int array[5] = {1, 2, 3, 4, 5};
   Object *temp_object = create_object(array, 5, &copy_int);
   ArrayVoid_ptr new_array = copy_arrayVoid(temp_object, 5);
+
   ArrayVoid_ptr mapped_array = map_void(new_array, &mul_by_5);
-  display_arrayVoid_ptr(new_array, &display_int);
   display_arrayVoid_ptr(mapped_array, &display_int);
+
+  ArrayVoid_ptr odd_void = filter_void(new_array, &is_odd_void);
+  display_arrayVoid_ptr(odd_void, &display_int);
 
   free_array(list);
   free_array(inc_list);

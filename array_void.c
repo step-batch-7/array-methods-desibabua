@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "array_void.h"
 
 Object *create_object(Object src, int length, Copy_void copy_element)
@@ -37,10 +38,27 @@ void display_arrayVoid_ptr(ArrayVoid_ptr arrayVoid, displayer console){
 
 ArrayVoid_ptr map_void(ArrayVoid_ptr src, MapperVoid mapper){
   Object *temp = malloc(sizeof(Object) * src->length);
-  
+
   for (int i = 0; i < src->length; i++)
   {
     temp[i] = (*mapper)(src->array[i]);
   }
   return copy_arrayVoid(temp, src->length);
+}
+
+ArrayVoid_ptr filter_void(ArrayVoid_ptr src, PredicateVoid predicate)
+{
+  Object temp[src->length];
+  int count = 0;
+  for (int i = 0; i < src->length; i++)
+  {
+    if((*predicate)(src->array[i])){
+      temp[count] = src->array[i];
+      count++;
+    }
+  }
+  Object *filtered_value = malloc(sizeof(Object) * count);
+  memcpy(filtered_value, temp, (sizeof(Object) * count));
+
+  return copy_arrayVoid(filtered_value, count);
 }
