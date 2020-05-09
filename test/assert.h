@@ -2,6 +2,7 @@
 #define __ASSERT_H_
 
 #include "../array.h"
+#include "../array_void.h"
 
 void describe(char *function_name);
 void it(char *message, Bool status);
