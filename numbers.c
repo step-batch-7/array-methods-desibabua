@@ -73,21 +73,27 @@ int main()
   display_number(total);
 
   int array[5] = {1, 2, 3, 4, 5};
-  Object *temp_object = create_object(array, 5, &copy_int);
-  ArrayVoid_ptr new_array = copy_arrayVoid(temp_object, 5);
+  Object *num_list = create_object(array, 5, &copy_int);
+  ArrayVoid_ptr num_list_void = copy_arrayVoid(num_list, 5);
 
-  ArrayVoid_ptr mapped_array = map_void(new_array, &mul_by_5);
+  ArrayVoid_ptr mapped_array = map_void(num_list_void, &mul_by_5);
   display_arrayVoid_ptr(mapped_array, &display_int);
 
-  ArrayVoid_ptr odd_void = filter_void(new_array, &is_odd_void);
+  ArrayVoid_ptr odd_void = filter_void(num_list_void, &is_odd_void);
   display_arrayVoid_ptr(odd_void, &display_int);
 
   Object initial = calloc(1, sizeof(int));
-  Object total_void = reduce_void(new_array, initial, &sum_void);
+  Object total_void = reduce_void(num_list_void, initial, &sum_void);
   display_int(total_void);
 
   free_array(list);
   free_array(inc_list);
   free_array(even_numbers);
+
+  free_arrayVoid(num_list_void);
+  free_arrayVoid(mapped_array);
+  free(initial);
+  free(total_void);
+
   return 0;
 }

@@ -15,6 +15,8 @@ void test_copy_array_void(void)
   Object *exp_array = create_object(array, 3, &copy_int);
   Bool status = assert_arrayVoid(copied_array, exp_array, 3, &compare_int_ptr);
   it("should create same arrayVoid", status);
+
+  free_arrayVoid(copied_array);
 }
 
 Object mul_by_2(Object number)
@@ -38,6 +40,10 @@ void test_map_void(void)
   ArrayVoid_ptr act_numbers = map_void(numbers_voids, &mul_by_2);
   Bool status = assert_arrayVoid(act_numbers, exp_numbers, 3, &compare_int_ptr);
   it("should map the elements of list", status);
+
+  free_arrayVoid(numbers_voids);
+  free_arrayVoid(act_numbers);
+  free_Object(exp_numbers, 3);
 }
 
 Bool is_odd_void(Object number)
@@ -59,6 +65,9 @@ void test_filter_void(void)
   ArrayVoid_ptr act_numbers = filter_void(numbers_voids, &is_odd_void);
   Bool status = assert_arrayVoid(act_numbers, exp_numbers, 4, &compare_int_ptr);
   it("should filter the elements of list", status);
+
+  free_arrayVoid(numbers_voids);
+  free_Object(exp_numbers, 4);
 }
 
 Object sum_void(Object init,Object number)
@@ -83,6 +92,8 @@ void test_reduce_void(void)
   Object actual = reduce_void(numbers_voids, initial, &sum_void);
   Bool status = compare_int_ptr(actual, expected);
   it("should give sum of elements", status);
+
+  free_arrayVoid(numbers_voids);
 }
 
 void test_array_void(void)

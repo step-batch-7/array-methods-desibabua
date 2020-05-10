@@ -26,6 +26,10 @@ Object reduce_void(ArrayVoid_ptr src, Object init, ReducerVoid reducer);
 ArrayVoid_ptr copy_arrayVoid(Object *src, int length);
 Object *create_object(Object src, int length, Copy_void copy_element);
 void *copy_int(void *numbers, int position);
+
+void free_arrayVoid(ArrayVoid_ptr src);
+void free_Object(Object *src, int length);
+
 void display_arrayVoid_ptr(ArrayVoid_ptr, displayer);
 
 #endif

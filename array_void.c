@@ -15,7 +15,7 @@ Object *create_object(Object src, int length, Copy_void copy_element)
 
 ArrayVoid_ptr copy_arrayVoid(Object *src,int length)
 {
-  ArrayVoid_ptr arrayVoid = malloc(sizeof(ArrayVoid_ptr));
+  ArrayVoid_ptr arrayVoid = malloc(sizeof(ArrayVoid));
   arrayVoid->length = length;
   arrayVoid->array = src;
   return arrayVoid;
@@ -26,6 +26,23 @@ void *copy_int(Object numbers,int position)
   int *element = malloc(sizeof(int));
   *element = ((int *)numbers)[position];
   return element;
+}
+
+void free_Object(Object *src, int length)
+{
+  for (int index = 0; index < length; index++)
+  {
+    free(src[index]);
+  }
+  free(src);
+  src = NULL;
+}
+
+void free_arrayVoid(ArrayVoid_ptr src)
+{
+  free_Object(src->array, src->length);
+  free(src);
+  src = NULL;
 }
 
 void display_arrayVoid_ptr(ArrayVoid_ptr arrayVoid, displayer console){
